@@ -1,0 +1,6 @@
+.env
+seen_jobs.json
+seen_jobs.tmp
+.venv/
+__pycache__/
+job_bot.log
