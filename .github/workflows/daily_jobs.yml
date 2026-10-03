@@ -1,0 +1,43 @@
+name: Daily job alerts
+
+on:
+  schedule:
+    - cron: "0 6 * * *"  # 06:00 UTC = 08:00/09:00 Israel time
+  workflow_dispatch:
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # Each run starts on a clean machine, so seen_jobs.json is kept in the
+      # Actions cache between runs. Without it, the same jobs would be sent again.
+      - name: Restore seen jobs
+        uses: actions/cache/restore@v4
+        with:
+          path: seen_jobs.json
+          key: seen-jobs-${{ github.run_id }}
+          restore-keys: seen-jobs-
+
+      - name: Run job bot
+        env:
+          SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python job_bot.py
+
+      - name: Save seen jobs
+        if: always() && hashFiles('seen_jobs.json') != ''
+        uses: actions/cache/save@v4
+        with:
+          path: seen_jobs.json
+          key: seen-jobs-${{ github.run_id }}
