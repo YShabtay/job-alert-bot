@@ -345,14 +345,16 @@ def _add_jobs(jobs, candidates):
             jobs[job["link"]] = job
             kept += 1
     print(f"  {len(candidates)} results, {kept} kept")
+    return len(candidates)
 
 
 def collect_jobs(api_key):
     jobs = {}
+    total = 0
     for keyword in LINKEDIN_KEYWORDS:
         print(f"LinkedIn: {keyword}")
         try:
-            _add_jobs(jobs, fetch_linkedin(keyword))
+            total += _add_jobs(jobs, fetch_linkedin(keyword))
         except requests.RequestException as e:
             print(f"  request failed: {e}")
 
@@ -360,11 +362,11 @@ def collect_jobs(api_key):
         for query in SEARCH_QUERIES:
             print(f"Google: {query}")
             try:
-                _add_jobs(jobs, [normalize(r) for r in fetch_results(query, api_key)])
+                total += _add_jobs(jobs, [normalize(r) for r in fetch_results(query, api_key)])
             except requests.RequestException as e:
                 print(f"  request failed: {e}")
             time.sleep(1)
-    return list(jobs.values())
+    return list(jobs.values()), total
 
 
 # ---------- Seen jobs ----------
@@ -472,7 +474,7 @@ def main():
         token, chat_id = env("TELEGRAM_BOT_TOKEN"), env("TELEGRAM_CHAT_ID")
 
     seen = load_seen()
-    jobs = collect_jobs(api_key)
+    jobs, total_results = collect_jobs(api_key)
     new_jobs = [j for j in jobs if j["link"] not in seen]
     print(f"Found {len(jobs)} matching jobs, {len(new_jobs)} new.")
 
@@ -483,7 +485,15 @@ def main():
         return
 
     if not new_jobs:
-        print("Nothing new - no message sent.")
+        # Send a short status so a quiet day is distinguishable from a broken run
+        if total_results == 0:
+            status = ("⚠️ <b>לא התקבלו תוצאות מהחיפוש היום</b>\n"
+                      "ייתכן ש-LinkedIn חסם את הבקשות. כדאי לבדוק את הלוג ב-GitHub Actions.")
+        else:
+            status = (f"✅ נבדק היום ({datetime.now():%d/%m/%Y}): אין משרות חדשות.\n"
+                      f"נסרקו {total_results} תוצאות.")
+        send_telegram(status, token, chat_id)
+        print("Nothing new - status message sent.")
         return
 
     for message in build_messages(new_jobs):
