@@ -2,7 +2,7 @@ name: Daily job alerts
 
 on:
   schedule:
-    - cron: "0 6 * * *"  # 06:00 UTC = 08:00/09:00 Israel time
+  - cron: "17 2 * * *"  # 02:17 UTC = 04:17/05:17 Israel time
   workflow_dispatch:
 
 jobs:
