@@ -5,7 +5,7 @@
 ## 1. יצירת בוט בטלגרם (2 דקות)
 
 1. בטלגרם, חפשו את **@BotFather** (עם וי כחול) ולחצו Start.
-2. שלחו `/newbot`, בחרו שם (למשל `My Jobs`) ו-username שמסתיים ב-`bot` (למשל `yogev_jobs_bot`).
+2. שלחו `/newbot`, בחרו שם (למשל `My Jobs`) ו-username שמסתיים ב-`bot` (למשל `my_jobs_bot`).
 3. BotFather ישלח **Bot Token** בצורה `123456789:ABC...`. זה ה-`TELEGRAM_BOT_TOKEN`.
 4. פתחו את הבוט החדש ושלחו לו הודעה כלשהי (למשל `hi`). **בלי השלב הזה אי אפשר לקבל את ה-Chat ID.**
 5. את ה-Chat ID מקבלים בסעיף 3 בעזרת `--get-chat-id`.
@@ -17,7 +17,8 @@
 ## 3. התקנה והרצה
 
 ```bash
-cd "/Users/yogevshabtay/Projects/Find Job"
+git clone https://github.com/YShabtay/job-alert-bot.git
+cd job-alert-bot
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt      # requests, python-dotenv
@@ -47,9 +48,13 @@ crontab -e
 ```
 מוסיפים את השורה (כל יום ב-09:00):
 ```
-0 9 * * * cd "/Users/yogevshabtay/Projects/Find Job" && .venv/bin/python job_bot.py >> job_bot.log 2>&1
+0 9 * * * cd /path/to/job-alert-bot && .venv/bin/python job_bot.py >> job_bot.log 2>&1
 ```
 cron לא ירוץ אם המחשב כבוי או ישן בשעה הזו.
+
+### חלופה: GitHub Actions (בלי להשאיר את המחשב דלוק)
+
+הריפו כולל workflow שרץ כל יום בענן. אחרי עשיית Fork, מגדירים ב-Settings ← Secrets and variables ← Actions את `TELEGRAM_BOT_TOKEN` ו-`TELEGRAM_CHAT_ID` (ואת `SERPAPI_KEY` רק אם צריך). הסודות נשמרים מוצפנים ולא נחשפים בקוד.
 
 ## קבצים
 
