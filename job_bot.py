@@ -3,7 +3,8 @@ job_bot.py - finds new student/junior jobs in Israel and sends a daily
 digest to Telegram.
 
 Sources:
-  - LinkedIn public job search (main source, no API key, no quota)
+  - LinkedIn public job search (no API key, no quota)
+  - Drushim, AllJobs and JobMaster search pages (see ISRAELI_SITES)
   - Google search via SerpApi (optional, off by default - see USE_GOOGLE_SEARCH)
 
 Usage:
@@ -22,7 +23,7 @@ import sys
 import time
 from datetime import datetime, timedelta
 from pathlib import Path
-from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+from urllib.parse import parse_qsl, quote, urlencode, urlsplit, urlunsplit
 
 import requests
 from dotenv import load_dotenv
@@ -31,7 +32,11 @@ from dotenv import load_dotenv
 # Search settings - edit these
 # ============================================================
 
-# ---- LinkedIn (main source) ----
+# Only jobs posted in the last N days (all sources). 3 days covers days the
+# bot didn't run; seen_jobs.json prevents getting the same job twice.
+MAX_JOB_AGE_DAYS = 3
+
+# ---- LinkedIn ----
 # Each keyword is searched in LinkedIn's public job listings for Israel.
 # Free and unlimited, so it can be a longer list.
 LINKEDIN_KEYWORDS = [
@@ -52,12 +57,23 @@ LINKEDIN_KEYWORDS = [
     "סטודנט דאטה",
 ]
 
-# Only jobs posted in the last N seconds. 3 days covers days the computer
-# was off; seen_jobs.json prevents getting the same job twice.
-LINKEDIN_POSTED_WITHIN = 3 * 24 * 3600
-
 # Result pages per keyword (10 jobs per page).
 LINKEDIN_PAGES = 2
+
+# ---- Israeli job sites ----
+# Remove a site from this list to stop searching it.
+ISRAELI_SITES = ["drushim", "alljobs", "jobmaster"]
+
+# Each keyword is searched once on every site above (first results page).
+ISRAELI_SITE_KEYWORDS = [
+    "סטודנט תעשייה וניהול",
+    "סטודנט דאטה",
+    "סטודנט אנליסט",
+    "סטודנט מערכות מידע",
+    "סטודנט ניהול פרויקטים",
+    "סטודנט BI",
+    "ג'וניור דאטה",
+]
 
 # ---- Google via SerpApi (optional) ----
 # Off by default: Google returns very few job pages from the last 24h and
@@ -105,6 +121,10 @@ LEVEL_KEYWORDS = [
     "entry", "entry-level",
 ]
 
+# LEVEL keywords that count only in the title. In a job description they
+# usually mean a degree requirement ("בוגר תואר ראשון"), not an entry-level role.
+LEVEL_TITLE_ONLY = ["בוגר", "graduate"]
+
 # Drop a result if its title contains any of these.
 # Note: "manager" alone is intentionally NOT here, so roles like
 # "Project Manager" / "PMO Project Manager" are kept.
@@ -112,7 +132,7 @@ EXCLUDE_KEYWORDS = [
     # seniority
     "senior", "sr", "lead", "leader", "team lead", "principal", "staff",
     "architect", "director", "head of", "vp", "vice president", "chief",
-    "cto", "cio", "coo", "general manager", "group manager",
+    "cto", "cio", "coo", "general manager", "group manager", "soc",
     "engineering manager", "senior manager",
     "בכיר", "בכירה", "ראש צוות", "ראש תחום", "ראש מחלק", "מנהל מחלק",
     "מנהלת מחלק", "מנהל/ת מחלק", "סמנכ\"ל", "סמנכ״ל", "סמנכל",
@@ -154,6 +174,13 @@ FOREIGN_LOCATIONS = [
     "גרמניה", "הודו", "צרפת", "סינגפור",
 ]
 
+# Drop a result if the company is one of these (training courses advertised
+# as jobs, e.g. "הפכו ל-Data Analyst - לא נדרש ניסיון").
+EXCLUDE_COMPANIES = [
+    "experis academy", "john bryce", "ג'ון ברייס", "hackeru", "infinitylabs",
+    "infinity labs", "naya",
+]
+
 # Drop a result if its title contains any of these (non-job pages).
 JUNK_TITLE_KEYWORDS = ["דף הבית", "archives", "קרן", "סקר", "פורום", "קבוצה"]
 
@@ -189,17 +216,20 @@ TITLE_SUFFIX = re.compile(r"\s*[|\-–]\s*(linkedin|drushim|דרושים|alljobs
 
 
 LINKEDIN_URL = "https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search"
-LINKEDIN_HEADERS = {
+BROWSER_HEADERS = {
     "User-Agent": ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
                    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"),
+    "Accept-Language": "he-IL,he;q=0.9,en;q=0.8",
 }
 
 
-def _card_field(card, pattern):
+def _card_field_raw(card, pattern):
     match = re.search(pattern, card, re.S)
-    if not match:
-        return ""
-    text = re.sub(r"<[^>]+>", "", match.group(1))
+    return match.group(1) if match else ""
+
+
+def _card_field(card, pattern):
+    text = re.sub(r"<[^>]+>", " ", _card_field_raw(card, pattern))
     return html.unescape(" ".join(text.split()))
 
 
@@ -227,16 +257,16 @@ def fetch_linkedin(keyword):
         params = {
             "keywords": keyword,
             "location": "Israel",
-            "f_TPR": f"r{LINKEDIN_POSTED_WITHIN}",
+            "f_TPR": f"r{MAX_JOB_AGE_DAYS * 24 * 3600}",
             "start": page * 10,
         }
         resp = requests.get(LINKEDIN_URL, params=params,
-                            headers=LINKEDIN_HEADERS, timeout=30)
+                            headers=BROWSER_HEADERS, timeout=30)
         if resp.status_code == 429:
             print("  LinkedIn rate limit - waiting 30s")
             time.sleep(30)
             resp = requests.get(LINKEDIN_URL, params=params,
-                                headers=LINKEDIN_HEADERS, timeout=30)
+                                headers=BROWSER_HEADERS, timeout=30)
         resp.raise_for_status()
         cards = parse_linkedin_cards(resp.text)
         jobs.extend(cards)
@@ -244,6 +274,129 @@ def fetch_linkedin(keyword):
         if len(cards) < 10:
             break
     return jobs
+
+
+# ---- Israeli job sites ----
+
+AGE_UNITS = [("דק", 60), ("שע", 3600), ("ימים", 86400), ("יום", 86400),
+             ("שבוע", 7 * 86400), ("חודש", 30 * 86400)]
+
+
+def age_in_seconds(text):
+    """Parse posting age like 'לפני 19 שעות', 'פורסם לפני 31 דקות',
+    'לפני יום', 'אתמול' or '05/10/2026'. Returns None if unknown."""
+    if "אתמול" in text:
+        return 86400
+    for unit, seconds in AGE_UNITS:
+        match = re.search(rf"לפני\s*(\d+)?\s*{unit}", text)
+        if match:
+            return int(match.group(1) or 1) * seconds
+    match = re.search(r"(\d{1,2})[./](\d{1,2})[./](\d{4})", text)
+    if match:
+        day, month, year = map(int, match.groups())
+        try:
+            return (datetime.now() - datetime(year, month, day)).total_seconds()
+        except ValueError:
+            return None
+    return None
+
+
+def _texts(fragment):
+    """All non-empty text nodes in an HTML fragment, in order."""
+    fragment = re.sub(r"<(svg|script|style)\b.*?</\1>", "", fragment, flags=re.S)
+    return [html.unescape(" ".join(t.split()))
+            for t in re.findall(r">([^<>]+)<", fragment) if t.strip()]
+
+
+def _get_page(url, params=None):
+    resp = requests.get(url, params=params, headers=BROWSER_HEADERS, timeout=30)
+    resp.raise_for_status()
+    return resp.text
+
+
+def fetch_drushim(keyword):
+    page = _get_page(f"https://www.drushim.co.il/jobs/search/{quote(keyword)}/")
+    jobs = []
+    for card in page.split('data-nagish="job-card-item"')[1:]:
+        link = re.search(r'job-card-details-link"[^>]*href="(/job/[^"]+)"', card)
+        if not link:
+            continue
+        # Text order: title, company, location(s), experience, job type, age
+        desc_start = re.search(r"<p\b", card)  # \b so "<path" (svg) doesn't match
+        header = _texts(card[card.find("job-card-title"):
+                             desc_start.start() if desc_start else len(card)])
+        if len(header) < 3:
+            continue
+        age = next((t for t in reversed(header) if age_in_seconds(t) is not None), "")
+        description = _card_field(card, r"<p\b[^>]*>(.*?)</p>")
+        jobs.append({
+            "title": header[0],
+            "company": header[1],
+            "location": header[2],
+            "date": age,
+            "age": age_in_seconds(age),
+            "link": clean_url("https://www.drushim.co.il" + link.group(1)),
+            "snippet": " ".join(header[3:]) + " " + description,
+            "source": "דרושים",
+        })
+    return jobs
+
+
+def fetch_alljobs(keyword):
+    page = _get_page("https://www.alljobs.co.il/SearchResultsGuest.aspx",
+                     {"page": 1, "position": "", "type": "", "freetxt": keyword})
+    jobs = []
+    for box in re.split(r'<div id="job-box-container\d+', page)[1:]:
+        link = re.search(r'href="(/Search/UploadSingle\.aspx\?JobID=\d+)"', box)
+        if not link:
+            continue
+        age = _card_field(box, r'job-content-top-date">(.*?)</div>')
+        jobs.append({
+            "title": _card_field(box, r"<h2[^>]*>(.*?)</h2>"),
+            "company": _card_field(box, r'</h2>.*?<div class="T14">(.*?)</div>'),
+            "location": ", ".join(_texts(_card_field_raw(
+                box, r'job-content-top-location">(.*?)</div>'))[1:]),
+            "date": age,
+            "age": age_in_seconds(age),
+            "link": clean_url("https://www.alljobs.co.il" + html.unescape(link.group(1))),
+            "snippet": (_card_field(box, r'job-content-top-type">(.*?)</div>') + " "
+                        + _card_field(box, r'job-content-top-desc[^"]*">(.*?)</div>')),
+            "source": "AllJobs",
+        })
+    return jobs
+
+
+def fetch_jobmaster(keyword):
+    page = _get_page("https://www.jobmaster.co.il/jobs/", {"q": keyword})
+    jobs = []
+    for card in page.split('class="CardStyle JobItem')[1:]:
+        link = re.search(r"href='(/jobs/checknum\.asp\?key=\d+)'", card)
+        if not link:
+            continue
+        age = _card_field(card, r'<span class="Gray">(.*?)</span>')
+        jobs.append({
+            "title": _card_field(card, r'class="CardHeader[^"]*"[^>]*>(.*?)</a>'),
+            "company": _card_field(card, r'CompanyNameLink"[^>]*>(.*?)</a>'),
+            "location": _card_field(card, r'class="jobLocation">(.*?)</li>'),
+            "date": age.replace("פורסם", "").strip(),
+            "age": age_in_seconds(age),
+            "link": clean_url("https://www.jobmaster.co.il" + link.group(1)),
+            "snippet": " ".join([
+                _card_field(card, r'class="jobType">(.*?)</li>'),
+                _card_field(card, r'class="jobSuitableFor">(.*?)</li>'),
+                _card_field(card, r'jobShortDescription[^"]*"[^>]*>(.*?)</div>'),
+            ]),
+            "source": "JobMaster",
+        })
+    return jobs
+
+
+# site key -> (display name, fetcher)
+ISRAELI_FETCHERS = {
+    "drushim": ("דרושים", fetch_drushim),
+    "alljobs": ("AllJobs", fetch_alljobs),
+    "jobmaster": ("JobMaster", fetch_jobmaster),
+}
 
 
 def fetch_results(query, api_key):
@@ -307,7 +460,10 @@ FOREIGN_PATTERNS = [_keyword_pattern(k) for k in FOREIGN_LOCATIONS]
 JUNK_PATTERNS = [_keyword_pattern(k) for k in JUNK_TITLE_KEYWORDS]
 ROLE_PATTERNS = [_keyword_pattern(k) for k in ROLE_KEYWORDS]
 LEVEL_PATTERNS = [_keyword_pattern(k) for k in LEVEL_KEYWORDS]
+LEVEL_SNIPPET_PATTERNS = [_keyword_pattern(k) for k in LEVEL_KEYWORDS
+                          if k not in LEVEL_TITLE_ONLY]
 EXCLUDE_PATTERNS = [_keyword_pattern(k) for k in EXCLUDE_KEYWORDS]
+EXCLUDE_COMPANY_PATTERNS = [_keyword_pattern(k) for k in EXCLUDE_COMPANIES]
 
 
 def is_allowed_url(url):
@@ -321,7 +477,6 @@ def is_allowed_url(url):
 
 def matches_filters(job):
     title = job["title"].lower()
-    text = f"{title} {job['snippet'].lower()}"
     title_and_url = f"{title} {job['link'].lower()}"
     if not is_allowed_url(job["link"]):
         return False
@@ -331,42 +486,67 @@ def matches_filters(job):
         return False
     if any(p.search(title) for p in EXCLUDE_PATTERNS):
         return False
+    if any(p.search(job["company"].lower()) for p in EXCLUDE_COMPANY_PATTERNS):
+        return False
     if not any(p.search(title) for p in ROLE_PATTERNS):
         return False
-    if not any(p.search(text) for p in LEVEL_PATTERNS):
+    snippet = job["snippet"].lower()
+    if not (any(p.search(title) for p in LEVEL_PATTERNS)
+            or any(p.search(snippet) for p in LEVEL_SNIPPET_PATTERNS)):
         return False
     return True
 
 
+def fingerprint(job):
+    """Same title + company = same job, even when found on two sites."""
+    return "fp:" + re.sub(r"\W", "", f"{job['title']}|{job['company']}".lower())
+
+
 def _add_jobs(jobs, candidates):
     kept = 0
+    max_age = MAX_JOB_AGE_DAYS * 86400
+    fingerprints = {fingerprint(j) for j in jobs.values()}
     for job in candidates:
-        if job["link"] and job["link"] not in jobs and matches_filters(job):
+        if not job["link"] or job["link"] in jobs or fingerprint(job) in fingerprints:
+            continue
+        if job.get("age") is not None and job["age"] > max_age:
+            continue
+        if matches_filters(job):
             jobs[job["link"]] = job
+            fingerprints.add(fingerprint(job))
             kept += 1
     print(f"  {len(candidates)} results, {kept} kept")
     return len(candidates)
 
 
 def collect_jobs(api_key):
+    """Returns (matching jobs, {source name: number of raw results})."""
     jobs = {}
-    total = 0
-    for keyword in LINKEDIN_KEYWORDS:
-        print(f"LinkedIn: {keyword}")
+    counts = {}
+
+    def run(source, label, fetch):
+        print(f"{source}: {label}")
         try:
-            total += _add_jobs(jobs, fetch_linkedin(keyword))
+            counts[source] = counts.get(source, 0) + _add_jobs(jobs, fetch())
         except requests.RequestException as e:
+            counts.setdefault(source, 0)
             print(f"  request failed: {e}")
+
+    for keyword in LINKEDIN_KEYWORDS:
+        run("LinkedIn", keyword, lambda: fetch_linkedin(keyword))
+
+    for site in ISRAELI_SITES:
+        name, fetch_site = ISRAELI_FETCHERS[site]
+        for keyword in ISRAELI_SITE_KEYWORDS:
+            run(name, keyword, lambda: fetch_site(keyword))
+            time.sleep(1.5)
 
     if USE_GOOGLE_SEARCH:
         for query in SEARCH_QUERIES:
-            print(f"Google: {query}")
-            try:
-                total += _add_jobs(jobs, [normalize(r) for r in fetch_results(query, api_key)])
-            except requests.RequestException as e:
-                print(f"  request failed: {e}")
+            run("Google", query,
+                lambda: [normalize(r) for r in fetch_results(query, api_key)])
             time.sleep(1)
-    return list(jobs.values()), total
+    return list(jobs.values()), counts
 
 
 # ---------- Seen jobs ----------
@@ -474,24 +654,28 @@ def main():
         token, chat_id = env("TELEGRAM_BOT_TOKEN"), env("TELEGRAM_CHAT_ID")
 
     seen = load_seen()
-    jobs, total_results = collect_jobs(api_key)
-    new_jobs = [j for j in jobs if j["link"] not in seen]
+    jobs, counts = collect_jobs(api_key)
+    new_jobs = [j for j in jobs
+                if j["link"] not in seen and fingerprint(j) not in seen]
+    sources_line = " · ".join(f"{name}: {n}" + (" ⚠️" if n == 0 else "")
+                              for name, n in counts.items())
+    print(f"Results per source: {sources_line}")
     print(f"Found {len(jobs)} matching jobs, {len(new_jobs)} new.")
 
     if args.dry_run:
         for i, job in enumerate(new_jobs, 1):
             where = " | ".join(x for x in (job["company"], job["location"]) if x)
-            print(f"{i}. {job['title']} | {where or job['source']}\n   {job['link']}")
+            print(f"{i}. [{job['source']}] {job['title']} | {where}\n   {job['link']}")
         return
 
     if not new_jobs:
         # Send a short status so a quiet day is distinguishable from a broken run
-        if total_results == 0:
+        if sum(counts.values()) == 0:
             status = ("⚠️ <b>לא התקבלו תוצאות מהחיפוש היום</b>\n"
-                      "ייתכן ש-LinkedIn חסם את הבקשות. כדאי לבדוק את הלוג ב-GitHub Actions.")
+                      "ייתכן שהאתרים חסמו את הבקשות. כדאי לבדוק את הלוג ב-GitHub Actions.")
         else:
             status = (f"✅ נבדק היום ({datetime.now():%d/%m/%Y}): אין משרות חדשות.\n"
-                      f"נסרקו {total_results} תוצאות.")
+                      f"תוצאות שנסרקו: {html.escape(sources_line)}")
         send_telegram(status, token, chat_id)
         print("Nothing new - status message sent.")
         return
@@ -503,8 +687,9 @@ def main():
     # Mark as seen only after a successful send
     now = datetime.now().isoformat()
     for job in new_jobs:
-        seen[job["link"]] = {"title": job["title"], "source": job["source"],
-                             "seen_at": now}
+        record = {"title": job["title"], "source": job["source"], "seen_at": now}
+        seen[job["link"]] = record
+        seen[fingerprint(job)] = record
     save_seen(seen)
     print(f"Sent {len(new_jobs)} jobs to Telegram.")
 
