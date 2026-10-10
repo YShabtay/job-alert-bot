@@ -52,6 +52,10 @@ LINKEDIN_KEYWORDS = [
     "Project Student",
     "Junior Project Manager",
     "Operations Student",
+    "Junior Product Manager",
+    "Product Manager Student",
+    "Associate Product Manager",
+    "Product Student",
     "Information Systems Student",
     "סטודנט מערכות מידע",
     "סטודנט דאטה",
@@ -71,6 +75,8 @@ ISRAELI_SITE_KEYWORDS = [
     "סטודנט אנליסט",
     "סטודנט מערכות מידע",
     "סטודנט ניהול פרויקטים",
+    "סטודנט ניהול מוצר",
+    "מנהל מוצר ג'וניור",
     "סטודנט BI",
     "ג'וניור דאטה",
 ]
@@ -112,6 +118,10 @@ ROLE_KEYWORDS = [
     # Hebrew/English equivalents and core תעשייה וניהול fields
     "תפעול", "business intelligence", "supply chain", "שרשרת אספקה",
     "logistics", "לוגיסטיקה", "procurement", "purchasing", "רכש",
+    # product management. Hebrew is phrase-only, since "מוצר" alone also
+    # matches warehouse/retail jobs ("סטודנט למחסן מוצרים").
+    "product", "products", "ניהול מוצר", "מנהל מוצר", "מנהלת מוצר",
+    "מנהל/ת מוצר", "מנהל.ת מוצר", "צוות מוצר", "צוות המוצר", "מחלקת מוצר",
 ]
 
 # Group B - experience level
@@ -143,6 +153,8 @@ EXCLUDE_KEYWORDS = [
     # customer service / sales / support
     "שירות לקוחות", "נציג", "נציגת", "נציג/ת", "מוקד", "טלמרקטינג",
     "מכירות", "sales", "customer service", "help desk", "תמיכה טכנית",
+    # "product" roles that aren't product management
+    "designer", "product testing", "tester", "מעצב", "מעצבת",
     # "Data Entry" would otherwise pass via "data" + "entry"
     "data entry", "הקלדה", "הקלדת נתונים",
 ]
