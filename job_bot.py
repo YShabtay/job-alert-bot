@@ -245,6 +245,14 @@ def _card_field(card, pattern):
     return html.unescape(" ".join(text.split()))
 
 
+def linkedin_app_link(url):
+    """il.linkedin.com/jobs/view/<slug>-<id> -> www.linkedin.com/jobs/view/<id>.
+    The LinkedIn iOS/Android app opens www.linkedin.com job links directly,
+    so tapping the link on a phone lands in the app instead of the browser."""
+    match = re.search(r"/jobs/view/(?:[^/]*-)?(\d+)/?$", urlsplit(url).path)
+    return f"https://www.linkedin.com/jobs/view/{match.group(1)}/" if match else url
+
+
 def parse_linkedin_cards(page_html):
     jobs = []
     for card in page_html.split("<li")[1:]:
@@ -256,7 +264,7 @@ def parse_linkedin_cards(page_html):
             "company": _card_field(card, r'base-search-card__subtitle">(.*?)</h4>'),
             "location": _card_field(card, r'job-search-card__location">(.*?)</span>'),
             "date": _card_field(card, r'<time[^>]*datetime="([^"]+)"'),
-            "link": clean_url(html.unescape(link.group(1))),
+            "link": linkedin_app_link(clean_url(html.unescape(link.group(1)))),
             "snippet": "",
             "source": "LinkedIn",
         })
