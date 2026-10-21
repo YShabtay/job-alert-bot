@@ -137,8 +137,9 @@ LEVEL_KEYWORDS = [
 ]
 
 # LEVEL keywords that count only in the title. In a job description they
-# usually mean a degree requirement ("בוגר תואר ראשון"), not an entry-level role.
-LEVEL_TITLE_ONLY = ["בוגר", "graduate"]
+# usually mean something else: a degree requirement ("בוגר תואר ראשון") or a
+# specialization ("יתרון אם ההתמחות היא במערכות מידע"), not an entry-level role.
+LEVEL_TITLE_ONLY = ["בוגר", "graduate", "התמחות"]
 
 # Drop a result if its title contains any of these.
 # Note: "manager" alone is intentionally NOT here, so roles like
