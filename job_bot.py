@@ -46,6 +46,9 @@ LINKEDIN_KEYWORDS = [
     "BI Student",
     "Data Engineer Student",
     "Junior Data Engineer",
+    "Data Science Student",
+    "Junior Data Scientist",
+    "Data Scientist Intern",
     "Industrial Engineering Student",
     "סטודנט תעשייה וניהול",
     "PMO Student",
@@ -72,6 +75,8 @@ ISRAELI_SITES = ["drushim", "alljobs", "jobmaster"]
 ISRAELI_SITE_KEYWORDS = [
     "סטודנט תעשייה וניהול",
     "סטודנט דאטה",
+    "סטודנט דאטה סיינס",
+    "סטודנט מדעי הנתונים",
     "סטודנט אנליסט",
     "סטודנט מערכות מידע",
     "סטודנט ניהול פרויקטים",
@@ -111,7 +116,7 @@ SEARCH_TIME = "qdr:d"
 
 # Group A - professional field
 ROLE_KEYWORDS = [
-    "data", "נתונים", "דאטה", "analyst", "אנליסט", "אנליסטית", "bi",
+    "data", "נתונים", "דאטה", "דאטה סיינס", "מדעי הנתונים", "analyst", "אנליסט", "אנליסטית", "bi",
     "industrial", "תעשייה וניהול", "תעשיה וניהול",
     "pmo", "project", "projects", "פרויקט", "פרויקטים",
     "information systems", "מערכות מידע", "operations", "אופרציה",
@@ -308,7 +313,9 @@ def age_in_seconds(text):
     if "אתמול" in text:
         return 86400
     for unit, seconds in AGE_UNITS:
-        match = re.search(rf"לפני\s*(\d+)?\s*{unit}", text)
+        # "לפני 3 ימים" anywhere, or a bare "3 ימים" (AllJobs' format)
+        match = (re.search(rf"לפני\s*(\d+)?\s*{unit}", text)
+                 or re.fullmatch(rf"\s*(\d+)\s*{unit}\S*\s*", text))
         if match:
             return int(match.group(1) or 1) * seconds
     match = re.search(r"(\d{1,2})[./](\d{1,2})[./](\d{4})", text)
