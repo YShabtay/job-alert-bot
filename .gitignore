@@ -6,3 +6,4 @@ __pycache__/
 job_bot.log
 hireme_seen.json
 hireme_msg*.txt
+hireme_candidates.json
