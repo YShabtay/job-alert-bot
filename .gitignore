@@ -4,3 +4,5 @@ seen_jobs.tmp
 .venv/
 __pycache__/
 job_bot.log
+hireme_seen.json
+hireme_msg*.txt
