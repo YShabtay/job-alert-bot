@@ -18,6 +18,7 @@ import argparse
 import html
 import json
 import os
+import random
 import re
 import sys
 import time
@@ -277,6 +278,22 @@ def parse_linkedin_cards(page_html):
     return jobs
 
 
+# LinkedIn rate-limits (HTTP 429) quickly, especially from GitHub's servers.
+# Spacing requests out avoids most 429s; retries back off progressively.
+LINKEDIN_DELAY = (4, 7)          # random pause between requests, seconds
+LINKEDIN_RETRY_WAITS = [15, 45]  # waits before each retry after a 429
+
+
+def _linkedin_get(params):
+    for wait in LINKEDIN_RETRY_WAITS + [None]:
+        resp = requests.get(LINKEDIN_URL, params=params,
+                            headers=BROWSER_HEADERS, timeout=30)
+        if resp.status_code != 429 or wait is None:
+            return resp
+        print(f"  LinkedIn rate limit - waiting {wait}s")
+        time.sleep(wait)
+
+
 def fetch_linkedin(keyword):
     jobs = []
     for page in range(LINKEDIN_PAGES):
@@ -286,17 +303,11 @@ def fetch_linkedin(keyword):
             "f_TPR": f"r{MAX_JOB_AGE_DAYS * 24 * 3600}",
             "start": page * 10,
         }
-        resp = requests.get(LINKEDIN_URL, params=params,
-                            headers=BROWSER_HEADERS, timeout=30)
-        if resp.status_code == 429:
-            print("  LinkedIn rate limit - waiting 30s")
-            time.sleep(30)
-            resp = requests.get(LINKEDIN_URL, params=params,
-                                headers=BROWSER_HEADERS, timeout=30)
+        resp = _linkedin_get(params)
         resp.raise_for_status()
         cards = parse_linkedin_cards(resp.text)
         jobs.extend(cards)
-        time.sleep(1.5)
+        time.sleep(random.uniform(*LINKEDIN_DELAY))
         if len(cards) < 10:
             break
     return jobs
