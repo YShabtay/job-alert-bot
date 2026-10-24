@@ -2,7 +2,7 @@ name: Daily job alerts
 
 on:
   schedule:
-  - cron: "17 2 * * *"  # 02:17 UTC = 04:17/05:17 Israel time
+  - cron: "17 0 * * *"  # 00:17 UTC = 02:17/03:17 Israel time
   workflow_dispatch:
 
 # Needed to commit state/seen_jobs.json back to the repo
