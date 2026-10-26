@@ -26,9 +26,13 @@ def normalize(text):
     return re.sub(r"\W", "", (text or "").lower())
 
 
-def fingerprint(title, company):
-    # Same formula as job_bot.fingerprint()
-    return "fp:" + normalize(f"{title}|{company}")
+COMPANY_SUFFIXES = re.compile(r'בע["״\']?מ|\b(?:ltd|limited|inc|llc|corp)\b\.?|\(il\)', re.I)
+
+
+def fingerprints(title, company):
+    # Same formulas as job_bot.fingerprint() and job_bot.legacy_fingerprint()
+    stripped = COMPANY_SUFFIXES.sub("", company or "")
+    return {"fp:" + normalize(f"{title}|{stripped}"), "fp:" + normalize(f"{title}|{company}")}
 
 
 def load_bot_seen():
@@ -48,7 +52,7 @@ def main():
     candidates = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
     seen = load_bot_seen()
 
-    fingerprints = {k for k in seen if k.startswith("fp:")}
+    seen_fps = {k for k in seen if k.startswith("fp:")}
     # Looser match for company names written differently on each site
     # ("Applied Materials Israel" vs "Applied Materials - Israel"):
     # same normalized title + first word of the company.
@@ -60,7 +64,7 @@ def main():
     already_sent = []
     for job in candidates:
         title, company = job.get("title", ""), job.get("company", "")
-        if fingerprint(title, company) in fingerprints:
+        if fingerprints(title, company) & seen_fps:
             already_sent.append(job["job_id"])
             continue
         first_word = normalize((company or "").split(" ")[0]) if company else ""

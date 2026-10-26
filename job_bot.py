@@ -536,8 +536,20 @@ def matches_filters(job):
     return True
 
 
+# Company suffixes that one site shows and another drops
+# ("תומר חברה ממשלתית" vs "תומר חברה ממשלתית בע\"מ").
+COMPANY_SUFFIXES = re.compile(r'בע["״\']?מ|\b(?:ltd|limited|inc|llc|corp)\b\.?|\(il\)', re.I)
+
+
 def fingerprint(job):
     """Same title + company = same job, even when found on two sites."""
+    company = COMPANY_SUFFIXES.sub("", job["company"] or "")
+    return "fp:" + re.sub(r"\W", "", f"{job['title']}|{company}".lower())
+
+
+def legacy_fingerprint(job):
+    """Fingerprint format used before company suffixes were stripped (Oct 2026).
+    Still checked so jobs sent under the old format aren't sent again."""
     return "fp:" + re.sub(r"\W", "", f"{job['title']}|{job['company']}".lower())
 
 
@@ -695,7 +707,8 @@ def main():
     seen = load_seen()
     jobs, counts = collect_jobs(api_key)
     new_jobs = [j for j in jobs
-                if j["link"] not in seen and fingerprint(j) not in seen]
+                if j["link"] not in seen and fingerprint(j) not in seen
+                and legacy_fingerprint(j) not in seen]
     sources_line = " · ".join(f"{name}: {n}" + (" ⚠️" if n == 0 else "")
                               for name, n in counts.items())
     print(f"Results per source: {sources_line}")
