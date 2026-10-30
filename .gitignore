@@ -7,3 +7,6 @@ job_bot.log
 hireme_seen.json
 hireme_msg*.txt
 hireme_candidates.json
+hireme_sent.json
+apply_offers/
+applications_log.json
