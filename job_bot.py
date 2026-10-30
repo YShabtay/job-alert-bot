@@ -739,7 +739,10 @@ def main():
     # Mark as seen only after a successful send
     now = datetime.now().isoformat()
     for job in new_jobs:
-        record = {"title": job["title"], "source": job["source"], "seen_at": now}
+        # company/location/link are read by the local "apply" Claude task
+        record = {"title": job["title"], "source": job["source"], "seen_at": now,
+                  "company": job["company"], "location": job["location"],
+                  "link": job["link"]}
         seen[job["link"]] = record
         seen[fingerprint(job)] = record
     save_seen(seen)
