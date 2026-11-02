@@ -1504,5 +1504,85 @@
     "company": "",
     "location": "רחובות",
     "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8876716"
+  },
+  "https://www.linkedin.com/jobs/view/4483994412/": {
+    "title": "Data Analyst - Student Position",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-02T06:24:29.948499",
+    "company": "KLA",
+    "location": "Migdal HaEmeq",
+    "link": "https://www.linkedin.com/jobs/view/4483994412/"
+  },
+  "fp:dataanalyststudentpositionkla": {
+    "title": "Data Analyst - Student Position",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-02T06:24:29.948499",
+    "company": "KLA",
+    "location": "Migdal HaEmeq",
+    "link": "https://www.linkedin.com/jobs/view/4483994412/"
+  },
+  "https://www.linkedin.com/jobs/view/4485950102/": {
+    "title": "סטודנט.ית לניהול מוצרי AI",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-02T06:24:29.948499",
+    "company": "Rafael Advanced Defense Systems",
+    "location": "North District, Israel",
+    "link": "https://www.linkedin.com/jobs/view/4485950102/"
+  },
+  "fp:סטודנטיתלניהולמוצריairafaeladvanceddefensesystems": {
+    "title": "סטודנט.ית לניהול מוצרי AI",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-02T06:24:29.948499",
+    "company": "Rafael Advanced Defense Systems",
+    "location": "North District, Israel",
+    "link": "https://www.linkedin.com/jobs/view/4485950102/"
+  },
+  "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8879161": {
+    "title": "דרוש /ה רכז /ת פיתוח תהליכים ופרויקטים - אופציה למשרת סטודנט",
+    "source": "AllJobs",
+    "seen_at": "2026-11-02T06:24:29.948499",
+    "company": "חברה חסויה",
+    "location": "ירושלים",
+    "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8879161"
+  },
+  "fp:דרושהרכזתפיתוחתהליכיםופרויקטיםאופציהלמשרתסטודנטחברהחסויה": {
+    "title": "דרוש /ה רכז /ת פיתוח תהליכים ופרויקטים - אופציה למשרת סטודנט",
+    "source": "AllJobs",
+    "seen_at": "2026-11-02T06:24:29.948499",
+    "company": "חברה חסויה",
+    "location": "ירושלים",
+    "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8879161"
+  },
+  "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8879623": {
+    "title": "Junior Technical Project Manager",
+    "source": "AllJobs",
+    "seen_at": "2026-11-02T06:24:29.948499",
+    "company": "",
+    "location": "",
+    "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8879623"
+  },
+  "fp:juniortechnicalprojectmanager": {
+    "title": "Junior Technical Project Manager",
+    "source": "AllJobs",
+    "seen_at": "2026-11-02T06:24:29.948499",
+    "company": "",
+    "location": "",
+    "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8879623"
+  },
+  "https://www.jobmaster.co.il/jobs/checknum.asp?key=9910992": {
+    "title": "מנהל/ת פרויקטים טכנולוגיים - מישרת סטודנט/ית",
+    "source": "JobMaster",
+    "seen_at": "2026-11-02T06:24:29.948499",
+    "company": "מפעיל בע\"מ",
+    "location": "פתח תקווה",
+    "link": "https://www.jobmaster.co.il/jobs/checknum.asp?key=9910992"
+  },
+  "fp:מנהלתפרויקטיםטכנולוגייםמישרתסטודנטיתמפעיל": {
+    "title": "מנהל/ת פרויקטים טכנולוגיים - מישרת סטודנט/ית",
+    "source": "JobMaster",
+    "seen_at": "2026-11-02T06:24:29.948499",
+    "company": "מפעיל בע\"מ",
+    "location": "פתח תקווה",
+    "link": "https://www.jobmaster.co.il/jobs/checknum.asp?key=9910992"
   }
 }
