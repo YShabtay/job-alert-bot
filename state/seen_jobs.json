@@ -1584,5 +1584,117 @@
     "company": "מפעיל בע\"מ",
     "location": "פתח תקווה",
     "link": "https://www.jobmaster.co.il/jobs/checknum.asp?key=9910992"
+  },
+  "https://www.linkedin.com/jobs/view/4484357071/": {
+    "title": "Student HR Analyst & PMO",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-03T06:57:52.200984",
+    "company": "SAP",
+    "location": "Raanana",
+    "link": "https://www.linkedin.com/jobs/view/4484357071/"
+  },
+  "fp:studenthranalystpmosap": {
+    "title": "Student HR Analyst & PMO",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-03T06:57:52.200984",
+    "company": "SAP",
+    "location": "Raanana",
+    "link": "https://www.linkedin.com/jobs/view/4484357071/"
+  },
+  "https://www.linkedin.com/jobs/view/4486808798/": {
+    "title": "Junior Supply Chain Specialist",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-03T06:57:52.200984",
+    "company": "HP",
+    "location": "Ness Ziona",
+    "link": "https://www.linkedin.com/jobs/view/4486808798/"
+  },
+  "fp:juniorsupplychainspecialisthp": {
+    "title": "Junior Supply Chain Specialist",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-03T06:57:52.200984",
+    "company": "HP",
+    "location": "Ness Ziona",
+    "link": "https://www.linkedin.com/jobs/view/4486808798/"
+  },
+  "https://www.drushim.co.il/job/38958154/96f70622": {
+    "title": "סטודנט/ית לתפקיד אנליסט/ית מתחיל/ה",
+    "source": "דרושים",
+    "seen_at": "2026-11-03T06:57:52.200984",
+    "company": "G STAT",
+    "location": "מספר מקומות",
+    "link": "https://www.drushim.co.il/job/38958154/96f70622"
+  },
+  "fp:סטודנטיתלתפקידאנליסטיתמתחילהgstat": {
+    "title": "סטודנט/ית לתפקיד אנליסט/ית מתחיל/ה",
+    "source": "דרושים",
+    "seen_at": "2026-11-03T06:57:52.200984",
+    "company": "G STAT",
+    "location": "מספר מקומות",
+    "link": "https://www.drushim.co.il/job/38958154/96f70622"
+  },
+  "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8881455": {
+    "title": "סטודנט/ית לתפקיד אנליסט/ית מתחיל/ה",
+    "source": "AllJobs",
+    "seen_at": "2026-11-03T06:57:52.200984",
+    "company": "",
+    "location": "פתח תקווה",
+    "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8881455"
+  },
+  "fp:סטודנטיתלתפקידאנליסטיתמתחילה": {
+    "title": "סטודנט/ית לתפקיד אנליסט/ית מתחיל/ה",
+    "source": "AllJobs",
+    "seen_at": "2026-11-03T06:57:52.200984",
+    "company": "",
+    "location": "פתח תקווה",
+    "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8881455"
+  },
+  "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8880908": {
+    "title": "מרצים ומרצות למחלקה במדעי הנתונים",
+    "source": "AllJobs",
+    "seen_at": "2026-11-03T06:57:52.200984",
+    "company": "",
+    "location": "חולון",
+    "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8880908"
+  },
+  "fp:מרציםומרצותלמחלקהבמדעיהנתונים": {
+    "title": "מרצים ומרצות למחלקה במדעי הנתונים",
+    "source": "AllJobs",
+    "seen_at": "2026-11-03T06:57:52.200984",
+    "company": "",
+    "location": "חולון",
+    "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8880908"
+  },
+  "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8880897": {
+    "title": "למחלקה במדעי הנתונים דרושים מרצים ומרצות לניתוח רשתות ניתוח רשתות חברתיות",
+    "source": "AllJobs",
+    "seen_at": "2026-11-03T06:57:52.200984",
+    "company": "",
+    "location": "חולון",
+    "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8880897"
+  },
+  "fp:למחלקהבמדעיהנתוניםדרושיםמרציםומרצותלניתוחרשתותניתוחרשתותחברתיות": {
+    "title": "למחלקה במדעי הנתונים דרושים מרצים ומרצות לניתוח רשתות ניתוח רשתות חברתיות",
+    "source": "AllJobs",
+    "seen_at": "2026-11-03T06:57:52.200984",
+    "company": "",
+    "location": "חולון",
+    "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8880897"
+  },
+  "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8880894": {
+    "title": "למחלקה במדעי הנתונים דרושים מרצים ומרצות לאבטחה והגנה על מערכות נתוני עתק | protection security of",
+    "source": "AllJobs",
+    "seen_at": "2026-11-03T06:57:52.200984",
+    "company": "",
+    "location": "חולון",
+    "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8880894"
+  },
+  "fp:למחלקהבמדעיהנתוניםדרושיםמרציםומרצותלאבטחהוהגנהעלמערכותנתוניעתקprotectionsecurityof": {
+    "title": "למחלקה במדעי הנתונים דרושים מרצים ומרצות לאבטחה והגנה על מערכות נתוני עתק | protection security of",
+    "source": "AllJobs",
+    "seen_at": "2026-11-03T06:57:52.200984",
+    "company": "",
+    "location": "חולון",
+    "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8880894"
   }
 }
