@@ -1888,5 +1888,37 @@
     "company": "דנאל משאבי אנוש בע\"מ- סניף חיפה",
     "location": "הרצליה",
     "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8883869"
+  },
+  "https://www.linkedin.com/jobs/view/4487790455/": {
+    "title": "Junior PPC & Marketing Operations Specialist",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-06T06:56:42.352795",
+    "company": "Movinglife",
+    "location": "Modiin-Maccabim-Reut",
+    "link": "https://www.linkedin.com/jobs/view/4487790455/"
+  },
+  "fp:juniorppcmarketingoperationsspecialistmovinglife": {
+    "title": "Junior PPC & Marketing Operations Specialist",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-06T06:56:42.352795",
+    "company": "Movinglife",
+    "location": "Modiin-Maccabim-Reut",
+    "link": "https://www.linkedin.com/jobs/view/4487790455/"
+  },
+  "https://www.linkedin.com/jobs/view/4485803892/": {
+    "title": "2027 Spring Industrial Engineer Undergraduate Intern",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-06T06:56:42.352795",
+    "company": "MKS Inc.",
+    "location": "Jerusalem District, Israel",
+    "link": "https://www.linkedin.com/jobs/view/4485803892/"
+  },
+  "fp:2027springindustrialengineerundergraduateinternmks": {
+    "title": "2027 Spring Industrial Engineer Undergraduate Intern",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-06T06:56:42.352795",
+    "company": "MKS Inc.",
+    "location": "Jerusalem District, Israel",
+    "link": "https://www.linkedin.com/jobs/view/4485803892/"
   }
 }
