@@ -1920,5 +1920,53 @@
     "company": "MKS Inc.",
     "location": "Jerusalem District, Israel",
     "link": "https://www.linkedin.com/jobs/view/4485803892/"
+  },
+  "https://www.linkedin.com/jobs/view/4486698238/": {
+    "title": "PMO JUNIOR",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-09T06:41:56.231367",
+    "company": "Elbit Systems Israel",
+    "location": "Haifa District, Israel",
+    "link": "https://www.linkedin.com/jobs/view/4486698238/"
+  },
+  "fp:pmojuniorelbitsystemsisrael": {
+    "title": "PMO JUNIOR",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-09T06:41:56.231367",
+    "company": "Elbit Systems Israel",
+    "location": "Haifa District, Israel",
+    "link": "https://www.linkedin.com/jobs/view/4486698238/"
+  },
+  "https://www.drushim.co.il/job/39012437/f94e1c35": {
+    "title": "מטמיע/ת מערכות מידע- משרת סטודנט/ית",
+    "source": "דרושים",
+    "seen_at": "2026-11-09T06:41:56.231367",
+    "company": "דנלוג אינטרקוסמא בע\"מ",
+    "location": "ראש העין",
+    "link": "https://www.drushim.co.il/job/39012437/f94e1c35"
+  },
+  "fp:מטמיעתמערכותמידעמשרתסטודנטיתדנלוגאינטרקוסמא": {
+    "title": "מטמיע/ת מערכות מידע- משרת סטודנט/ית",
+    "source": "דרושים",
+    "seen_at": "2026-11-09T06:41:56.231367",
+    "company": "דנלוג אינטרקוסמא בע\"מ",
+    "location": "ראש העין",
+    "link": "https://www.drushim.co.il/job/39012437/f94e1c35"
+  },
+  "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8890733": {
+    "title": "FP&A Analyst - Student Position",
+    "source": "AllJobs",
+    "seen_at": "2026-11-09T06:41:56.231367",
+    "company": "",
+    "location": "",
+    "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8890733"
+  },
+  "fp:fpaanalyststudentposition": {
+    "title": "FP&A Analyst - Student Position",
+    "source": "AllJobs",
+    "seen_at": "2026-11-09T06:41:56.231367",
+    "company": "",
+    "location": "",
+    "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8890733"
   }
 }
