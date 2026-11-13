@@ -2320,5 +2320,37 @@
     "company": "",
     "location": "",
     "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8896383"
+  },
+  "https://www.linkedin.com/jobs/view/4489238316/": {
+    "title": "Junior Project Manager",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-13T06:54:46.427202",
+    "company": "Bulls Media Worldgroup",
+    "location": "Kiryat Ono",
+    "link": "https://www.linkedin.com/jobs/view/4489238316/"
+  },
+  "fp:juniorprojectmanagerbullsmediaworldgroup": {
+    "title": "Junior Project Manager",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-13T06:54:46.427202",
+    "company": "Bulls Media Worldgroup",
+    "location": "Kiryat Ono",
+    "link": "https://www.linkedin.com/jobs/view/4489238316/"
+  },
+  "https://www.jobmaster.co.il/jobs/checknum.asp?key=9922180": {
+    "title": "סטודנט בהנדסת תעשייה וניהול לחברה גלובלית בבאר שבע, אנגלית חובה!",
+    "source": "JobMaster",
+    "seen_at": "2026-11-13T06:54:46.427202",
+    "company": "",
+    "location": "באר שבע",
+    "link": "https://www.jobmaster.co.il/jobs/checknum.asp?key=9922180"
+  },
+  "fp:סטודנטבהנדסתתעשייהוניהוללחברהגלובליתבבארשבעאנגליתחובה": {
+    "title": "סטודנט בהנדסת תעשייה וניהול לחברה גלובלית בבאר שבע, אנגלית חובה!",
+    "source": "JobMaster",
+    "seen_at": "2026-11-13T06:54:46.427202",
+    "company": "",
+    "location": "באר שבע",
+    "link": "https://www.jobmaster.co.il/jobs/checknum.asp?key=9922180"
   }
 }
