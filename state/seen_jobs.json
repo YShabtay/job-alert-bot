@@ -2672,5 +2672,21 @@
     "company": "חברה חסויה",
     "location": "מספר מקומות",
     "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8876330"
+  },
+  "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8909261": {
+    "title": "קדם /ת רכש - משרת ג'וניור",
+    "source": "AllJobs",
+    "seen_at": "2026-11-21T07:20:13.450878",
+    "company": "",
+    "location": "פארק תעשיות קדמת גליל",
+    "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8909261"
+  },
+  "fp:קדםתרכשמשרתגוניור": {
+    "title": "קדם /ת רכש - משרת ג'וניור",
+    "source": "AllJobs",
+    "seen_at": "2026-11-21T07:20:13.450878",
+    "company": "",
+    "location": "פארק תעשיות קדמת גליל",
+    "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8909261"
   }
 }
