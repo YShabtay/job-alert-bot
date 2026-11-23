@@ -2688,5 +2688,85 @@
     "company": "",
     "location": "פארק תעשיות קדמת גליל",
     "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8909261"
+  },
+  "https://www.linkedin.com/jobs/view/4493375300/": {
+    "title": "Risk Analyst - Student Position",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-23T07:48:32.405499",
+    "company": "Appcharge",
+    "location": "Tel Aviv-Yafo",
+    "link": "https://www.linkedin.com/jobs/view/4493375300/"
+  },
+  "fp:riskanalyststudentpositionappcharge": {
+    "title": "Risk Analyst - Student Position",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-23T07:48:32.405499",
+    "company": "Appcharge",
+    "location": "Tel Aviv-Yafo",
+    "link": "https://www.linkedin.com/jobs/view/4493375300/"
+  },
+  "https://www.drushim.co.il/job/39161853/48c8bb53": {
+    "title": "דרוש/ה מנהל/ת מוצר לתחום המיסוב",
+    "source": "דרושים",
+    "seen_at": "2026-11-23T07:48:32.405499",
+    "company": "קומטל טכנולוגיות והנדסה",
+    "location": "פתח תקווה",
+    "link": "https://www.drushim.co.il/job/39161853/48c8bb53"
+  },
+  "fp:דרושהמנהלתמוצרלתחוםהמיסובקומטלטכנולוגיותוהנדסה": {
+    "title": "דרוש/ה מנהל/ת מוצר לתחום המיסוב",
+    "source": "דרושים",
+    "seen_at": "2026-11-23T07:48:32.405499",
+    "company": "קומטל טכנולוגיות והנדסה",
+    "location": "פתח תקווה",
+    "link": "https://www.drushim.co.il/job/39161853/48c8bb53"
+  },
+  "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8910614": {
+    "title": "בקר.ית NOC / data Center משרת סטודנט.ית",
+    "source": "AllJobs",
+    "seen_at": "2026-11-23T07:48:32.405499",
+    "company": "אוקטאלי אינטגרציה בע\"מ",
+    "location": "שוהם",
+    "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8910614"
+  },
+  "fp:בקריתnocdatacenterמשרתסטודנטיתאוקטאליאינטגרציה": {
+    "title": "בקר.ית NOC / data Center משרת סטודנט.ית",
+    "source": "AllJobs",
+    "seen_at": "2026-11-23T07:48:32.405499",
+    "company": "אוקטאלי אינטגרציה בע\"מ",
+    "location": "שוהם",
+    "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8910614"
+  },
+  "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8910756": {
+    "title": "אנליסט /ית בתחום משאבי אנוש",
+    "source": "AllJobs",
+    "seen_at": "2026-11-23T07:48:32.405499",
+    "company": "",
+    "location": "",
+    "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8910756"
+  },
+  "fp:אנליסטיתבתחוםמשאביאנוש": {
+    "title": "אנליסט /ית בתחום משאבי אנוש",
+    "source": "AllJobs",
+    "seen_at": "2026-11-23T07:48:32.405499",
+    "company": "",
+    "location": "",
+    "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8910756"
+  },
+  "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8911154": {
+    "title": "Junior Project Manager",
+    "source": "AllJobs",
+    "seen_at": "2026-11-23T07:48:32.405499",
+    "company": "מלם תים",
+    "location": "מספר מקומות",
+    "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8911154"
+  },
+  "fp:juniorprojectmanagerמלםתים": {
+    "title": "Junior Project Manager",
+    "source": "AllJobs",
+    "seen_at": "2026-11-23T07:48:32.405499",
+    "company": "מלם תים",
+    "location": "מספר מקומות",
+    "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8911154"
   }
 }
