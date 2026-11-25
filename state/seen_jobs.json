@@ -2848,5 +2848,101 @@
     "company": "תוצאות יעוץ והשמה",
     "location": "ראשון לציון",
     "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8912642"
+  },
+  "https://www.linkedin.com/jobs/view/4494794329/": {
+    "title": "Student Information Systems Analyst",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-25T08:53:39.427663",
+    "company": "AMAREL LTD",
+    "location": "Yokneam Ilit",
+    "link": "https://www.linkedin.com/jobs/view/4494794329/"
+  },
+  "fp:studentinformationsystemsanalystamarel": {
+    "title": "Student Information Systems Analyst",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-25T08:53:39.427663",
+    "company": "AMAREL LTD",
+    "location": "Yokneam Ilit",
+    "link": "https://www.linkedin.com/jobs/view/4494794329/"
+  },
+  "https://www.linkedin.com/jobs/view/4494326790/": {
+    "title": "סטודנט/ית לרכש",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-25T08:53:39.427663",
+    "company": "IAI - Israel Aerospace Industries",
+    "location": "Lod",
+    "link": "https://www.linkedin.com/jobs/view/4494326790/"
+  },
+  "fp:סטודנטיתלרכשiaiisraelaerospaceindustries": {
+    "title": "סטודנט/ית לרכש",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-25T08:53:39.427663",
+    "company": "IAI - Israel Aerospace Industries",
+    "location": "Lod",
+    "link": "https://www.linkedin.com/jobs/view/4494326790/"
+  },
+  "https://www.linkedin.com/jobs/view/4494339036/": {
+    "title": "Industrial Waste Systems Practical Engineering Student Working in Shifts - Kiryat Gat",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-25T08:53:39.427663",
+    "company": "Intel",
+    "location": "Kiryat Gat",
+    "link": "https://www.linkedin.com/jobs/view/4494339036/"
+  },
+  "fp:industrialwastesystemspracticalengineeringstudentworkinginshiftskiryatgatintel": {
+    "title": "Industrial Waste Systems Practical Engineering Student Working in Shifts - Kiryat Gat",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-25T08:53:39.427663",
+    "company": "Intel",
+    "location": "Kiryat Gat",
+    "link": "https://www.linkedin.com/jobs/view/4494339036/"
+  },
+  "https://www.linkedin.com/jobs/view/4493040221/": {
+    "title": "Customer Data Cloud - student position",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-25T08:53:39.427663",
+    "company": "SAP",
+    "location": "Raanana",
+    "link": "https://www.linkedin.com/jobs/view/4493040221/"
+  },
+  "fp:customerdatacloudstudentpositionsap": {
+    "title": "Customer Data Cloud - student position",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-25T08:53:39.427663",
+    "company": "SAP",
+    "location": "Raanana",
+    "link": "https://www.linkedin.com/jobs/view/4493040221/"
+  },
+  "https://www.drushim.co.il/job/39103618/e105b0fe": {
+    "title": "דרוש.ה מנהל.ת שירות במח' מערכות מידע",
+    "source": "דרושים",
+    "seen_at": "2026-11-25T08:53:39.427663",
+    "company": "המכללה האקדמית עמק יזרעאל",
+    "location": "מזרע",
+    "link": "https://www.drushim.co.il/job/39103618/e105b0fe"
+  },
+  "fp:דרושהמנהלתשירותבמחמערכותמידעהמכללההאקדמיתעמקיזרעאל": {
+    "title": "דרוש.ה מנהל.ת שירות במח' מערכות מידע",
+    "source": "דרושים",
+    "seen_at": "2026-11-25T08:53:39.427663",
+    "company": "המכללה האקדמית עמק יזרעאל",
+    "location": "מזרע",
+    "link": "https://www.drushim.co.il/job/39103618/e105b0fe"
+  },
+  "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8914761": {
+    "title": "Junior BI Developer",
+    "source": "AllJobs",
+    "seen_at": "2026-11-25T08:53:39.427663",
+    "company": "אלעד מערכות",
+    "location": "תל אביב יפו",
+    "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8914761"
+  },
+  "fp:juniorbideveloperאלעדמערכות": {
+    "title": "Junior BI Developer",
+    "source": "AllJobs",
+    "seen_at": "2026-11-25T08:53:39.427663",
+    "company": "אלעד מערכות",
+    "location": "תל אביב יפו",
+    "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8914761"
   }
 }
