@@ -3200,5 +3200,37 @@
     "company": "",
     "location": "",
     "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8899478"
+  },
+  "https://www.linkedin.com/jobs/view/4494239462/": {
+    "title": "Operations Intern",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-28T07:59:58.650133",
+    "company": "Thermo Fisher Scientific",
+    "location": "Rosh Pina",
+    "link": "https://www.linkedin.com/jobs/view/4494239462/"
+  },
+  "fp:operationsinternthermofisherscientific": {
+    "title": "Operations Intern",
+    "source": "LinkedIn",
+    "seen_at": "2026-11-28T07:59:58.650133",
+    "company": "Thermo Fisher Scientific",
+    "location": "Rosh Pina",
+    "link": "https://www.linkedin.com/jobs/view/4494239462/"
+  },
+  "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8919036": {
+    "title": "קדם /ת רכש - משרת ג'וניור",
+    "source": "AllJobs",
+    "seen_at": "2026-11-28T07:59:58.650133",
+    "company": "ארגון השומר החדש (ע\"ר) | עמותה",
+    "location": "פארק תעשיות קדמת גליל",
+    "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8919036"
+  },
+  "fp:קדםתרכשמשרתגוניורארגוןהשומרהחדשערעמותה": {
+    "title": "קדם /ת רכש - משרת ג'וניור",
+    "source": "AllJobs",
+    "seen_at": "2026-11-28T07:59:58.650133",
+    "company": "ארגון השומר החדש (ע\"ר) | עמותה",
+    "location": "פארק תעשיות קדמת גליל",
+    "link": "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8919036"
   }
 }
